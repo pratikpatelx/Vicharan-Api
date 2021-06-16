@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +14,8 @@ import com.example.demo.models.AuthenticationRequest;
 import com.example.demo.models.AuthenticationResponse;
 import com.example.demo.models.UserModel;
 import com.example.demo.models.UserRepository;
+import com.example.demo.services.UserService;
+import com.example.demo.utils.JwtUtils;
 
 /**
  * @author Pratik Patel, This class is an Authentication controller, define all
@@ -28,6 +32,12 @@ public class AuthController {
 	@Autowired
 	// authentication manager
 	private AuthenticationManager authManager;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private JwtUtils jwtutils;
 
 	@PostMapping("/login")
 	/*
@@ -40,6 +50,8 @@ public class AuthController {
 		String username = authenticationRequest.getUsername();
 		// get the password
 		String password = authenticationRequest.getPassword();
+		
+		
 
 		// checks if credentials entered are correct or not
 		try {
@@ -48,8 +60,12 @@ public class AuthController {
 		} catch (Exception e) {
 			return ResponseEntity.ok(new AuthenticationResponse("Error: User Log In Failed" + e));
 		}
+		
+		UserDetails loadUser = userService.loadUserByUsername(username);
+		String generatedToken = jwtutils.generateToken(loadUser);
+		
 		// return the correct message
-		return ResponseEntity.ok(new AuthenticationResponse("User Log In Sucessfull: " + username));
+		return ResponseEntity.ok(new AuthenticationResponse(generatedToken));
 
 	}
 
@@ -80,6 +96,12 @@ public class AuthController {
 		}
 
 		return ResponseEntity.ok(new AuthenticationResponse("SucessFully Registered User: " + username));
+	}
+	
+	@PostMapping("/dashboard")
+	private String testingToken() {
+		return "Welcome to the Dashboard " + SecurityContextHolder.getContext().getAuthentication().getName();
+
 	}
 
 }
