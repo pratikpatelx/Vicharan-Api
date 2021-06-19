@@ -98,6 +98,15 @@ public class AuthController {
 		return ResponseEntity.ok(new AuthenticationResponse("SucessFully Registered User: " + username));
 	}
 	
+	//image API endpoint
+	
+	@PostMapping("/user")
+	private String testUser(@RequestBody String id)
+	{
+		return "Hello" + id;
+		
+	}
+	
 	@PostMapping("/dashboard")
 	private String testingToken() {
 		return "Welcome to the Dashboard " + SecurityContextHolder.getContext().getAuthentication().getName();
