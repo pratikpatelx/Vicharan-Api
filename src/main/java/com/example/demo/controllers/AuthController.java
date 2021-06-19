@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,7 @@ public class AuthController {
 		String username = authenticationRequest.getUsername();
 		// get the password
 		String password = authenticationRequest.getPassword();
+		
 
 		// checks if credentials entered are correct or not
 		try {
@@ -107,9 +109,9 @@ public class AuthController {
 		return ResponseEntity.ok(new AuthenticationResponse("SucessFully Registered User: " + username));
 	}
 
-	@PostMapping("/VichranApp/Home")
-	private String homepage(String user) {
-		return user;
+	@GetMapping("/VichranApp/Home")
+	private String homepage() {
+		return "Hello " + SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
 }
