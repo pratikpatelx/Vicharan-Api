@@ -39,7 +39,7 @@ public class AuthController {
 	@Autowired
 	private JwtUtils jwtutils;
 
-	@PostMapping("/login")
+	@PostMapping("/VichranApp/login")
 	/*
 	 * This method gets the user name and password for the user in the api request
 	 * to localhost/login and verifies if we have a user in the DB then we have
@@ -69,7 +69,7 @@ public class AuthController {
 
 	}
 
-	@PostMapping("/register")
+	@PostMapping("/VichranApp/register")
 	/*
 	 * This method register's the user on the DB, and username and password is
 	 * stored on the DB if the user is added then a message is displayed otherwise
@@ -80,12 +80,26 @@ public class AuthController {
 		String username = authenticationRequest.getUsername();
 		// get the password
 		String password = authenticationRequest.getPassword();
+		String name = authenticationRequest.getName();
+		// get the password
+		String seniorSwami = authenticationRequest.getSeniorSwami();
+		String centre = authenticationRequest.getCentre();
+		
+		
 		// Create a UserModel object for every user that will be registered
 		UserModel userModel = new UserModel();
 		// set the username in the DB
 		userModel.setUsername(username);
 		// set the password in the DB
 		userModel.setPassword(password);
+		// set the name in the DB
+		userModel.setName(name);
+		// set the senior swami
+		userModel.setSeniorSwami(seniorSwami);
+		// set the centre swami is based out of
+		userModel.setCentre(centre);
+		
+		
 
 		// save the user otherwise throw an error
 		try {
@@ -98,7 +112,13 @@ public class AuthController {
 		return ResponseEntity.ok(new AuthenticationResponse("SucessFully Registered User: " + username));
 	}
 	
-	@PostMapping("/dashboard")
+	@PostMapping("/VichranApp/Home")
+	private String homepage(String user)
+	{
+		return user;
+	}
+	
+	@PostMapping("/VichranApp/dashboard")
 	private String testingToken() {
 		return "Welcome to the Dashboard " + SecurityContextHolder.getContext().getAuthentication().getName();
 

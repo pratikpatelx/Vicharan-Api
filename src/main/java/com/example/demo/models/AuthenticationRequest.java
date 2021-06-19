@@ -10,27 +10,67 @@ public class AuthenticationRequest {
 	private String username;
 	// The password of the user
 	private String password;
+	
+	private String name;
+	
+	private String seniorSwami;
+	
+	private String image;
+	
+	private String centre;
 
-	// Constructor to initialze an Authentication Requesr
+	// Constructor to initialize an Authentication Request
 	public AuthenticationRequest() {
 		// empty Constructor
 	}
 
-	// Getters and Setters
+	// Getters
 	public String getUsername() {
 		return username;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
+	
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public String getImage() {
+		return image;
+	}
+	
+	public String getCentre() {
+		return centre;
+	}
+	
+	public String getSeniorSwami() {
+		return seniorSwami;
+	}
+	
+	//Setters
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	public void setImage(String Image) {
+		this.image = Image;
+	}
+	
+	public void setName(String Name) {
+		this.name = Name;
+	}
+	
+	public void setCentre(String centre) {
+		this.centre = centre;
+	}
+	
+	public void setSeniorSwami(String swami) {
+		this.seniorSwami = swami;
+	}
 }
