@@ -112,6 +112,7 @@ public class AuthController {
 		return ResponseEntity.ok(new AuthenticationResponse("SucessFully Registered User: " + username));
 	}
 	
+<<<<<<< HEAD
 	@PostMapping("/VichranApp/Home")
 	private String homepage(String user)
 	{
@@ -119,6 +120,18 @@ public class AuthController {
 	}
 	
 	@PostMapping("/VichranApp/dashboard")
+=======
+	//image API endpoint
+	
+	@PostMapping("/user")
+	private String testUser(@RequestBody String id)
+	{
+		return "Hello" + id;
+		
+	}
+	
+	@PostMapping("/dashboard")
+>>>>>>> branch 'master' of https://github.com/pratikpatelx/Vicharan-Api
 	private String testingToken() {
 		return "Welcome to the Dashboard " + SecurityContextHolder.getContext().getAuthentication().getName();
 
