@@ -32,10 +32,10 @@ public class AuthController {
 	@Autowired
 	// authentication manager
 	private AuthenticationManager authManager;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private JwtUtils jwtutils;
 
@@ -50,8 +50,6 @@ public class AuthController {
 		String username = authenticationRequest.getUsername();
 		// get the password
 		String password = authenticationRequest.getPassword();
-		
-		
 
 		// checks if credentials entered are correct or not
 		try {
@@ -60,10 +58,10 @@ public class AuthController {
 		} catch (Exception e) {
 			return ResponseEntity.ok(new AuthenticationResponse("Error: User Log In Failed" + e));
 		}
-		
+
 		UserDetails loadUser = userService.loadUserByUsername(username);
 		String generatedToken = jwtutils.generateToken(loadUser);
-		
+
 		// return the correct message
 		return ResponseEntity.ok(new AuthenticationResponse(generatedToken));
 
@@ -84,8 +82,7 @@ public class AuthController {
 		// get the password
 		String seniorSwami = authenticationRequest.getSeniorSwami();
 		String centre = authenticationRequest.getCentre();
-		
-		
+
 		// Create a UserModel object for every user that will be registered
 		UserModel userModel = new UserModel();
 		// set the username in the DB
@@ -98,8 +95,6 @@ public class AuthController {
 		userModel.setSeniorSwami(seniorSwami);
 		// set the centre swami is based out of
 		userModel.setCentre(centre);
-		
-		
 
 		// save the user otherwise throw an error
 		try {
@@ -111,30 +106,10 @@ public class AuthController {
 
 		return ResponseEntity.ok(new AuthenticationResponse("SucessFully Registered User: " + username));
 	}
-	
-<<<<<<< HEAD
-	@PostMapping("/VichranApp/Home")
-	private String homepage(String user)
-	{
-		return user;
-	}
-	
-	@PostMapping("/VichranApp/dashboard")
-=======
-	//image API endpoint
-	
-	@PostMapping("/user")
-	private String testUser(@RequestBody String id)
-	{
-		return "Hello" + id;
-		
-	}
-	
-	@PostMapping("/dashboard")
->>>>>>> branch 'master' of https://github.com/pratikpatelx/Vicharan-Api
-	private String testingToken() {
-		return "Welcome to the Dashboard " + SecurityContextHolder.getContext().getAuthentication().getName();
 
+	@PostMapping("/VichranApp/Home")
+	private String homepage(String user) {
+		return user;
 	}
 
 }
